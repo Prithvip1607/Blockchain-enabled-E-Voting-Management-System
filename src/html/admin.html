@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin · ChainVote</title>
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="#overview"><span class="brand-mark"><i data-icon="vote" data-size="22"></i></span>ChainVote</a>
+    <nav class="nav" aria-label="Admin">
+      <a href="#overview" data-view="overview"><i data-icon="home"></i><span>Overview</span></a>
+      <a href="#candidates" data-view="candidates"><i data-icon="idcard"></i><span>Candidates</span></a>
+      <a href="#election" data-view="election"><i data-icon="calendar"></i><span>Election</span></a>
+      <a href="#results" data-view="results"><i data-icon="chart"></i><span>Results</span></a>
+      <a href="#voters" data-view="voters"><i data-icon="users"></i><span>Voters</span></a>
+      <a href="#verify" data-view="verify"><i data-icon="shield"></i><span>Blockchain</span></a>
+    </nav>
+    <div class="side-foot">
+      <p class="side-note">Blockchain changes are Ethereum transactions. Only the contract owner’s wallet can make them; the smart contract enforces this.</p>
+      <button type="button" class="btn btn-ghost" id="btn-logout"><i data-icon="logout" data-size="18"></i>Sign out</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand brand-sm" href="#overview" aria-label="ChainVote"><span class="brand-mark"><i data-icon="vote" data-size="18"></i></span></a>
+      <h1 class="title" id="page-title">Overview</h1>
+      <span class="spacer"></span>
+      <div id="wallet-slot"></div>
+      <button type="button" class="user-chip" id="user-chip" aria-label="Account menu"><span class="avatar" aria-hidden="true">A</span><span class="who">Admin</span></button>
+    </header>
+
+    <main id="main" class="content" tabindex="-1">
+      <div id="chain-alert" hidden></div>
+      <div id="owner-alert" hidden></div>
+
+      <!-- Overview -->
+      <section class="view" id="view-overview" aria-label="Overview">
+        <div id="election"><div class="skeleton" style="height:170px;border-radius:22px"></div></div>
+        <div class="card"><div class="card-head"><div><h2>Election progress</h2><p class="card-sub">Read from the smart contract.</p></div></div><div id="stepper"></div></div>
+        <div class="grid grid-4" id="stats"></div>
+        <div class="grid grid-2" style="align-items:start">
+          <div class="card"><div class="card-head"><div><h2>Before voting opens</h2><p class="card-sub">A quick readiness check.</p></div></div><ul id="checklist" style="list-style:none;margin:0;padding:0;display:grid;gap:12px"></ul></div>
+          <div class="card"><div class="card-head"><div><h2>Blockchain</h2><p class="card-sub">Live checks against Ethereum Sepolia.</p></div></div><div id="chain-status"></div><div id="chain-info" style="margin-top:16px"></div></div>
+        </div>
+      </section>
+
+      <!-- Candidates -->
+      <section class="view" id="view-candidates" aria-label="Candidate management" hidden>
+        <div class="card">
+          <div class="card-head"><div><h2>Add a candidate</h2><p class="card-sub">Sends a transaction from the owner wallet. Candidates can only be changed before voting starts.</p></div></div>
+          <div id="cand-lock" style="margin-bottom:14px" hidden></div>
+          <form id="cand-form" novalidate>
+            <div class="form-row">
+              <div class="field"><label for="c-name">Candidate name</label><input class="input" id="c-name" name="name" autocomplete="off" maxlength="60" placeholder="e.g. Meera Nair"></div>
+              <div class="field"><label for="c-party">Party or organization</label><input class="input" id="c-party" name="party" autocomplete="off" maxlength="60" placeholder="e.g. Independent"></div>
+            </div>
+            <button type="submit" class="btn" id="btn-add"><i data-icon="plus" data-size="18"></i>Add candidate</button>
+          </form>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <div class="card-head" style="padding:20px 22px 0"><div><h2>Candidates</h2><p class="card-sub" id="cand-count"></p></div></div>
+          <div id="cand-table" style="padding:16px 0 0"></div>
+        </div>
+      </section>
+
+      <!-- Election management -->
+      <section class="view" id="view-election" aria-label="Election management" hidden>
+        <div class="grid grid-2" style="align-items:start">
+          <div style="display:grid;gap:18px">
+            <div class="card">
+              <div class="card-head"><div><h2>Election title</h2><p class="card-sub">Stored in the contract.</p></div></div>
+              <form id="title-form" novalidate>
+                <div class="field"><label for="e-title">Title</label><input class="input" id="e-title" name="title" maxlength="100" autocomplete="off"></div>
+                <button type="submit" class="btn btn-secondary" id="btn-title">Save title</button>
+              </form>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><h2>Voting window</h2><p class="card-sub">Voters can only vote between these two times.</p></div></div>
+              <div id="date-lock" style="margin-bottom:14px" hidden></div>
+              <form id="date-form" novalidate>
+                <div class="field"><label for="d-start">Opens</label><input class="input" id="d-start" name="start" type="datetime-local"></div>
+                <div class="field"><label for="d-end">Closes</label><input class="input" id="d-end" name="end" type="datetime-local"></div>
+                <p class="hint" style="margin:-6px 0 14px" id="tz-hint"></p>
+                <div class="field" style="margin-bottom:18px"><span class="label">Quick presets</span>
+                  <div class="inline-actions">
+                    <button type="button" class="btn btn-secondary btn-sm" data-preset="3600">Open now for 1 hour</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-preset="86400">1 day</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-preset="604800">7 days</button>
+                  </div></div>
+                <button type="submit" class="btn" id="btn-dates"><i data-icon="calendar" data-size="18"></i>Save voting window</button>
+              </form>
+            </div>
+          </div>
+          <div class="card"><div class="card-head"><div><h2>Current schedule</h2><p class="card-sub">Stored in the smart contract.</p></div><span id="sched-badge"></span></div><div id="sched"></div></div>
+        </div>
+        <div class="card danger">
+          <div class="card-head"><div><h2>Reset election</h2><p class="card-sub">Starts a new election (new ID). Candidates and the schedule are cleared and every wallet can vote again. Earlier elections stay on the blockchain. Not possible while voting is active.</p></div>
+            <button type="button" class="btn btn-danger-quiet" id="btn-reset"><i data-icon="refresh" data-size="18"></i>Reset election</button></div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="view" id="view-results" aria-label="Results" hidden>
+        <div class="toolbar" style="justify-content:space-between">
+          <span class="muted" id="updated" style="font-size:.85rem"></span>
+          <div class="toolbar"><button type="button" class="btn btn-secondary btn-sm" id="btn-csv"><i data-icon="download" data-size="16"></i>Export CSV</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh"><i data-icon="refresh" data-size="16"></i>Refresh</button></div>
+        </div>
+        <div id="results-root"></div>
+      </section>
+
+      <!-- Voters (application accounts in MySQL) -->
+      <section class="view" id="view-voters" aria-label="Registered accounts" hidden>
+        <p class="page-intro">Application accounts registered through sign-up (stored in MySQL). Removing an account doesn’t affect any vote already recorded on the blockchain, and it doesn’t control which wallets may vote.</p>
+        <div class="toolbar"><div class="input-wrap"><i class="ic-lead" data-icon="search" data-size="18"></i><input class="input" id="v-search" type="search" placeholder="Search voter ID" aria-label="Search voters"></div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-voters-refresh"><i data-icon="refresh" data-size="16"></i>Refresh</button></div>
+        <div id="voter-table"></div>
+      </section>
+
+      <!-- Blockchain verification -->
+      <section class="view" id="view-verify" aria-label="Blockchain verification" hidden>
+        <p class="page-intro">Proof that ChainVote is using a real Ethereum network: every value below can be checked on Sepolia Etherscan.</p>
+        <div id="verify-root"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="../vendor/ethers.umd.min.js"></script>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/chain.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/results.js"></script>
+<script src="../js/election.js"></script>
+<script src="../js/verify.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

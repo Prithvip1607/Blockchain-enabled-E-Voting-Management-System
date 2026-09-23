@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voter dashboard · ChainVote</title>
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="#dashboard"><span class="brand-mark"><i data-icon="vote" data-size="22"></i></span>ChainVote</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#dashboard" data-view="dashboard"><i data-icon="home"></i><span>Dashboard</span></a>
+      <a href="#vote" data-view="vote"><i data-icon="vote"></i><span>Vote</span></a>
+      <a href="#results" data-view="results"><i data-icon="chart"></i><span>Results</span></a>
+      <a href="#verify" data-view="verify"><i data-icon="shield"></i><span>Blockchain</span></a>
+    </nav>
+    <div class="side-foot">
+      <p class="side-note">A vote is an Ethereum transaction. Once confirmed it can’t be changed or undone.</p>
+      <button type="button" class="btn btn-ghost" id="btn-logout"><i data-icon="logout" data-size="18"></i>Sign out</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand brand-sm" href="#dashboard" aria-label="ChainVote"><span class="brand-mark"><i data-icon="vote" data-size="18"></i></span></a>
+      <h1 class="title" id="page-title">Dashboard</h1>
+      <span class="spacer"></span>
+      <div id="wallet-slot"></div>
+      <button type="button" class="user-chip" id="user-chip" aria-label="Account menu"><span class="avatar" aria-hidden="true">V</span><span class="who">Voter</span></button>
+    </header>
+
+    <main id="main" class="content" tabindex="-1">
+      <div id="chain-alert" hidden></div>
+
+      <!-- Dashboard -->
+      <section class="view" id="view-dashboard" aria-label="Election overview">
+        <div id="election"><div class="skeleton" style="height:170px;border-radius:22px"></div></div>
+        <div class="card"><div class="card-head"><div><h2>Election progress</h2><p class="card-sub">Read from the smart contract.</p></div></div><div id="stepper"></div></div>
+        <div class="grid grid-3">
+          <div class="card" id="card-wallet"><div class="skeleton" style="height:120px"></div></div>
+          <div class="card" id="card-ballot"><div class="skeleton" style="height:120px"></div></div>
+          <div class="card" id="card-turnout"><div class="skeleton" style="height:120px"></div></div>
+        </div>
+        <div class="grid grid-2" style="align-items:start">
+          <div class="card">
+            <div class="card-head"><div><h2>How your vote is recorded</h2><p class="card-sub">Nothing is sent without your approval.</p></div></div>
+            <ol class="steps" style="grid-template-columns:1fr 1fr">
+              <li><b>Choose</b>Pick one candidate on the ballot.</li>
+              <li><b>Approve</b>Confirm the transaction in MetaMask.</li>
+              <li><b>Confirmed</b>The contract checks the rules and counts your vote in a Sepolia block.</li>
+              <li><b>Verify</b>Open the transaction on Sepolia Etherscan.</li>
+            </ol>
+          </div>
+          <div class="card"><div class="card-head"><div><h2>Blockchain status</h2><p class="card-sub">Live checks.</p></div></div><div id="dash-status"></div></div>
+        </div>
+      </section>
+
+      <!-- Ballot -->
+      <section class="view" id="view-vote" aria-label="Ballot" hidden>
+        <p class="page-intro">Select one candidate, then review and confirm. Your wallet can vote only once in this election.</p>
+        <div id="ballot-notice"></div>
+        <form id="ballot-form" novalidate>
+          <fieldset style="border:0;padding:0;margin:0;min-width:0">
+            <legend class="sr-only">Choose a candidate</legend>
+            <div class="ballot" id="ballot"></div>
+          </fieldset>
+          <div class="action-bar" id="action-bar" hidden style="margin-top:18px">
+            <div class="sel" id="sel-text" aria-live="polite">No candidate selected</div>
+            <button type="submit" class="btn" id="btn-review" disabled>Review your vote</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Results -->
+      <section class="view" id="view-results" aria-label="Results" hidden>
+        <div class="toolbar" style="justify-content:space-between">
+          <p class="page-intro" style="margin:0" id="results-note">Counted by the smart contract.</p>
+          <div class="toolbar"><span class="muted" id="updated" style="font-size:.85rem"></span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh"><i data-icon="refresh" data-size="16"></i>Refresh</button></div>
+        </div>
+        <div id="results-root"></div>
+      </section>
+
+      <!-- Blockchain verification -->
+      <section class="view" id="view-verify" aria-label="Blockchain verification" hidden>
+        <p class="page-intro">Proof that ChainVote is using a real Ethereum network: every value below can be checked on Sepolia Etherscan.</p>
+        <div id="verify-root"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="../vendor/ethers.umd.min.js"></script>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/chain.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/results.js"></script>
+<script src="../js/election.js"></script>
+<script src="../js/verify.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/voter.js"></script>
+</body>
+</html>

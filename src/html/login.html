@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · ChainVote</title>
+  <meta name="description" content="Sign in to cast or manage your vote on the blockchain.">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+<a class="skip" href="#login-form">Skip to sign in form</a>
+<div class="auth">
+  <aside class="auth-aside">
+    <a class="brand" href="login.html" aria-label="ChainVote home"><span class="brand-mark"><i data-icon="vote" data-size="22"></i></span>ChainVote</a>
+    <div>
+      <h1>Every vote recorded once. Verifiable by anyone.</h1>
+      <p class="lead">Cast your ballot from your own wallet. Results are counted by a smart contract, not by a single server.</p>
+      <ul class="trust">
+        <li><i data-icon="shield"></i><span><b>One address, one vote.</b> The contract rejects a second ballot.</span></li>
+        <li><i data-icon="cube"></i><span><b>Recorded on-chain.</b> Every transaction is written to a block.</span></li>
+        <li><i data-icon="key"></i><span><b>You stay in control.</b> Nothing is sent until you approve it in your wallet.</span></li>
+      </ul>
+    </div>
+    <div class="ledger" aria-hidden="true">
+      <div class="ledger-block fresh"><span class="n">Block #1,204</span><span class="h">0x9f3a…c41e</span><span class="t">1 vote</span></div>
+      <div class="ledger-block"><span class="n">Block #1,203</span><span class="h">0x4b71…0d9a</span><span class="t">1 vote</span></div>
+      <div class="ledger-block"><span class="n">Block #1,202</span><span class="h">0xe208…77b3</span><span class="t">2 votes</span></div>
+    </div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Sign in</h2>
+      <p class="sub">Use the voter ID you registered with.</p>
+
+      <div id="form-alert" class="alert alert-err" role="alert" hidden style="margin-bottom:18px"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="voterId">Voter ID</label>
+          <div class="input-wrap"><i class="ic-lead" data-icon="idcard"></i>
+            <input class="input" id="voterId" name="voterId" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. voter001"></div>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap"><i class="ic-lead" data-icon="lock"></i>
+            <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" style="padding-right:46px">
+            <button type="button" class="reveal" aria-label="Show password" aria-pressed="false"><i data-icon="eye"></i></button></div>
+        </div>
+        <button class="btn btn-block" type="submit" id="submit">Sign in</button>
+      </form>
+
+      <p class="auth-foot">New voter? <a href="signup.html">Create an account</a> · <a href="results.html">Public results</a></p>
+      <div class="alert alert-info" style="margin-top:22px"><i data-icon="wallet" data-size="18"></i><div>Signing in identifies your ChainVote account. Voting is authorized separately by your MetaMask wallet on Ethereum Sepolia.</div></div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/login.js"></script>
+</body>
+</html>

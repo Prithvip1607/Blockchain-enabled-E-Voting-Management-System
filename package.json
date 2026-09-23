@@ -1,0 +1,24 @@
+{
+  "name": "chainvote",
+  "version": "1.0.0",
+  "description": "ChainVote: Blockchain-enabled E-Voting Management System using Ethereum and Solidity",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "compile": "truffle compile",
+    "test": "truffle test",
+    "deploy:sepolia": "truffle migrate --network sepolia --reset",
+    "export:frontend": "node scripts/export-frontend.js",
+    "vendor": "node scripts/vendor.js",
+    "postinstall": "node scripts/vendor.js"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.4",
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "dotenv": "^16.4.5",
+    "truffle": "^5.11.5"
+  }
+}

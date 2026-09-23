@@ -1,0 +1,21 @@
+# secrets
+.env
+*.pem
+*.key
+
+# dependencies / builds
+node_modules/
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# generated third-party bundles (recreated by `npm install` / `npm run vendor`)
+src/vendor/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

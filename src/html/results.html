@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public results · ChainVote</title>
+  <meta name="description" content="Election results read directly from the ChainVote smart contract on Ethereum Sepolia.">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="topbar" style="position:static">
+  <a class="brand" href="login.html" style="color:var(--navy)"><span class="brand-mark"><i data-icon="vote" data-size="20"></i></span>ChainVote</a>
+  <h1 class="title" style="font-size:1.1rem;margin-left:8px" id="page-title">Public results</h1>
+  <span class="spacer" style="flex:1"></span>
+  <a class="btn btn-secondary btn-sm" href="login.html">Sign in</a>
+</header>
+<main id="main" class="content" tabindex="-1">
+  <div id="problem" hidden></div>
+  <div id="election"><div class="skeleton" style="height:170px;border-radius:22px"></div></div>
+  <div class="card"><div class="card-head"><div><h2>Election progress</h2></div></div><div id="stepper"></div></div>
+  <div class="toolbar" style="justify-content:space-between">
+    <p class="page-intro" style="margin:0" id="results-note">Read directly from the smart contract on Ethereum Sepolia. No sign-in or wallet needed.</p>
+    <div class="toolbar"><span class="muted" id="updated" style="font-size:.85rem"></span>
+      <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh"><i data-icon="refresh" data-size="16"></i>Refresh</button></div>
+  </div>
+  <div id="results-root"></div>
+  <div class="card"><div class="card-head"><div><h2>Verify on the blockchain</h2><p class="card-sub">Anyone can check these numbers on Sepolia Etherscan.</p></div></div>
+    <div id="contract-link"></div><div id="chain-status" style="margin-top:14px"></div></div>
+</main>
+
+<script src="../vendor/ethers.umd.min.js"></script>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/chain.js"></script>
+<script src="../js/results.js"></script>
+<script src="../js/election.js"></script>
+<script src="../js/verify.js"></script>
+<script src="../js/results-page.js"></script>
+</body>
+</html>

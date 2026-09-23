@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account · ChainVote</title>
+  <meta name="description" content="Register as a voter.">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+<a class="skip" href="#signup-form">Skip to sign up form</a>
+<div class="auth">
+  <aside class="auth-aside">
+    <a class="brand" href="login.html" aria-label="ChainVote home"><span class="brand-mark"><i data-icon="vote" data-size="22"></i></span>ChainVote</a>
+    <div>
+      <h1>Register once, then vote from your own wallet.</h1>
+      <p class="lead">Your voter ID keeps your account. Your wallet address is what the smart contract uses to make sure you vote only once.</p>
+      <ul class="trust">
+        <li><i data-icon="idcard"></i><span><b>Choose a voter ID.</b> It must be unique.</span></li>
+        <li><i data-icon="lock"></i><span><b>Set a password.</b> You’ll use it to sign in.</span></li>
+        <li><i data-icon="wallet"></i><span><b>Connect MetaMask</b> when you’re ready to vote.</span></li>
+      </ul>
+    </div>
+    <div class="ledger" aria-hidden="true">
+      <div class="ledger-block fresh"><span class="n">Block #1,204</span><span class="h">0x9f3a…c41e</span><span class="t">1 vote</span></div>
+      <div class="ledger-block"><span class="n">Block #1,203</span><span class="h">0x4b71…0d9a</span><span class="t">1 vote</span></div>
+      <div class="ledger-block"><span class="n">Block #1,202</span><span class="h">0xe208…77b3</span><span class="t">2 votes</span></div>
+    </div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Create your account</h2>
+      <p class="sub">It takes less than a minute.</p>
+
+      <div id="form-alert" class="alert alert-err" role="alert" hidden style="margin-bottom:18px"></div>
+
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="voterId">Voter ID</label>
+          <div class="input-wrap"><i class="ic-lead" data-icon="idcard"></i>
+            <input class="input" id="voterId" name="voterId" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. voter001" aria-describedby="id-hint"></div>
+          <span class="hint" id="id-hint">3–32 characters, no spaces.</span>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap"><i class="ic-lead" data-icon="lock"></i>
+            <input class="input" id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" style="padding-right:46px" aria-describedby="pw-label">
+            <button type="button" class="reveal" aria-label="Show password" aria-pressed="false"><i data-icon="eye"></i></button></div>
+          <div class="strength" id="pw-meter" data-level="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <span class="hint" id="pw-label" aria-live="polite">Longer passwords with mixed characters are stronger.</span>
+        </div>
+        <div class="field">
+          <label for="confirm">Confirm password</label>
+          <div class="input-wrap"><i class="ic-lead" data-icon="lock"></i>
+            <input class="input" id="confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Re-enter your password"></div>
+        </div>
+        <button class="btn btn-block" type="submit" id="submit">Create account</button>
+      </form>
+      <p class="auth-foot">Already registered? <a href="login.html">Sign in</a></p>
+    </div>
+  </main>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/signup.js"></script>
+</body>
+</html>
