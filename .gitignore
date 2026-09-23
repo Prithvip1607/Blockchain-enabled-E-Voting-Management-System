@@ -19,3 +19,4 @@ src/vendor/
 .DS_Store
 .idea/
 .vscode/
+.env.save
